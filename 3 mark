@@ -1,0 +1,162 @@
+Here’s the second set of answers to your questions:
+
+---
+
+### **1. Explain Message Encapsulation in Layered Architecture (3 marks)** (Continued)
+
+Message encapsulation refers to the process of wrapping data with additional information as it moves through different layers in a network protocol stack. Each layer of the stack adds its specific control information (headers and trailers) before passing it down to the next layer:
+
+- **Application Layer**: The user’s data is passed from the application layer to the transport layer.
+- **Transport Layer**: Adds a header to the data that includes information about end-to-end communication, like source and destination ports.
+- **Network Layer**: Adds another header containing routing information (such as source and destination IP addresses) to forward the data across networks.
+- **Data Link Layer**: Adds a header and trailer to ensure proper data framing, error checking (like CRC), and addresses for local delivery (such as MAC addresses).
+- **Physical Layer**: Converts the frame into bits and transmits it over the communication medium (e.g., copper wires, fiber optics, etc.).
+
+As the message passes down the layers, each layer adds its control information. When it reaches the destination, the data is passed up the layers, where headers are stripped off sequentially.
+
+---
+
+### **2. Compare and Contrast SMTP and POP3 Protocols (3 marks)** (Continued)
+
+| **Feature**            | **SMTP (Simple Mail Transfer Protocol)**                       | **POP3 (Post Office Protocol v3)**                           |
+|------------------------|-----------------------------------------------------------------|--------------------------------------------------------------|
+| **Purpose**            | SMTP is used for **sending** emails to a mail server or between servers. | POP3 is used for **retrieving** emails from the mail server to the client. |
+| **Connection**         | Maintains an open connection throughout the session until the message is sent. | Creates a connection to download emails and closes after the session ends. |
+| **Statefulness**       | SMTP is **stateless**; the connection is terminated after the mail is delivered. | POP3 is **stateful**; keeps track of emails until they are downloaded by the client. |
+| **Email Deletion**     | The server stores the email; once sent, emails are not deleted. | Emails are deleted from the server once downloaded (though this behavior can be configured). |
+| **Use**                | Primarily used to send outgoing emails.                        | Primarily used to fetch and read incoming emails.             |
+
+---
+
+### **3. Differentiate UDP and TCP (3 marks)** (Continued)
+
+| **Feature**            | **UDP (User Datagram Protocol)**                         | **TCP (Transmission Control Protocol)**                    |
+|------------------------|----------------------------------------------------------|------------------------------------------------------------|
+| **Reliability**        | Does not guarantee delivery (unreliable).               | Guarantees delivery through acknowledgments and retransmissions. |
+| **Flow Control**       | No flow control; does not manage how much data is sent.  | Implements flow control mechanisms to avoid congestion and buffer overflow. |
+| **Congestion Control** | No congestion control; may lead to network congestion.   | Provides congestion control (e.g., slow-start, congestion avoidance). |
+| **Ordering**           | Does not ensure in-order delivery.                      | Ensures data arrives in the correct order.                 |
+| **Use Cases**          | Suitable for real-time applications (e.g., VoIP, video streaming). | Used for applications that require reliable communication (e.g., web browsing, file transfer). |
+
+---
+
+### **4. Explain Stop-and-Wait Protocol with the Help of a Timing Diagram (3 marks)** (Continued)
+
+**Stop-and-Wait Protocol**:
+- In this protocol, the sender sends one data frame and then waits for an acknowledgment (ACK) from the receiver before sending the next frame.
+
+**Timing Diagram**:
+
+```
+Sender                    Receiver
+  |                         |
+  |--- Frame 1 ------------->| (Send Frame 1)
+  |                         |
+  |<--- ACK 1 --------------| (Receiver sends ACK 1)
+  |                         |
+  |--- Frame 2 ------------->| (Send Frame 2 after ACK 1)
+  |                         |
+  .                         .
+  .
+```
+
+- The sender cannot send more than one frame at a time. It waits for the acknowledgment of the previous frame before sending the next one.
+- If no ACK is received within a timeout period, the sender retransmits the frame.
+
+This protocol is simple but inefficient in terms of throughput, especially in high-latency networks, as it requires a round-trip wait for each frame before sending the next.
+
+---
+
+### **5. Services Offered by the Network Layer (3 marks)** (Continued)
+
+The **Network Layer** in the OSI model provides essential services that enable data to travel across multiple networks:
+
+1. **Routing**: Determines the best path for data packets from source to destination.
+2. **Logical Addressing**: Provides devices with unique identifiers (IP addresses), which are necessary for routing and forwarding data across different networks.
+3. **Packet Forwarding**: Forwards data packets to their destination based on the routing table and IP address.
+4. **Fragmentation and Reassembly**: Breaks large packets into smaller fragments to accommodate various network link limitations, and reassembles them at the destination.
+5. **Error Handling**: Protocols like ICMP (Internet Control Message Protocol) help diagnose issues, such as unreachable destinations, by sending error messages.
+
+The network layer operates independently of the physical and data link layers and facilitates end-to-end communication between devices in different networks.
+
+---
+
+### **6. Compare and Contrast Link-State and Distance-Vector Routing Algorithms (3 marks)** (Continued)
+
+| **Feature**            | **Link-State Routing Algorithm**                              | **Distance-Vector Routing Algorithm**                          |
+|------------------------|---------------------------------------------------------------|---------------------------------------------------------------|
+| **Routing Information**| Every router has a complete map of the network's topology.    | Routers only know the distance to directly connected neighbors. |
+| **Update Method**      | Routers exchange detailed network topology information, sending updates only when the network changes. | Routers send periodic updates containing their routing table to neighbors. |
+| **Convergence Time**   | Faster convergence since routers have a complete network view. | Slower convergence as information is passed along from router to router. |
+| **Scalability**        | More scalable for larger networks because of quicker and more efficient updates. | Less scalable as the routing table size grows with network size. |
+| **Example**            | OSPF (Open Shortest Path First) and IS-IS (Intermediate System to Intermediate System). | RIP (Routing Information Protocol).                           |
+
+---
+
+### **7. Describe Ethernet Frame Structure (3 marks)** (Continued)
+
+The **Ethernet Frame** structure includes the following components:
+
+1. **Preamble (7 bytes)**: A sequence of bits that helps synchronize the transmission.
+2. **Start Frame Delimiter (SFD) (1 byte)**: Indicates the start of the frame.
+3. **Destination MAC Address (6 bytes)**: Specifies the destination device's MAC address.
+4. **Source MAC Address (6 bytes)**: Specifies the sender's MAC address.
+5. **EtherType (2 bytes)**: Identifies the protocol being used (e.g., IPv4, ARP).
+6. **Data (46-1500 bytes)**: The actual data or payload being transmitted. If it's smaller than 46 bytes, padding is added to meet the minimum size requirement.
+7. **CRC (Cyclic Redundancy Check) (4 bytes)**: Used for error detection, ensuring data integrity.
+
+The **Ethernet frame** is one of the most commonly used data link layer frame formats in networking.
+
+---
+
+### **8. Explain Any One of the Channel Partitioning Protocols (3 marks)** (Continued)
+
+**Time Division Multiple Access (TDMA)** is another channel partitioning protocol. In TDMA:
+
+- The available bandwidth is divided into **time slots**, and each user is allocated a specific time slot to transmit data.
+- **Working**: In a system where multiple users are sharing the same channel, each user is assigned a specific time interval (slot) during which they can transmit. The user transmits data only during their allocated time, ensuring no interference.
+- **Example**: TDMA is used in cellular networks such as GSM.
+
+TDMA ensures that multiple users can share the same frequency band without interfering with each other by dividing time into distinct intervals.
+
+---
+
+### **9. Describe Poisson Process (3 marks)** (Continued)
+
+A **Poisson process** is used to model random events that occur independently and at a constant average rate. It is often used to represent the arrival of entities (such as customers or packets) in systems like queues or communication networks. Key characteristics:
+
+- **Constant Rate**: Events occur at a constant average rate \( \lambda \) (events per time unit).
+- **Independence**: The occurrence of an event does not affect the probability of the next event.
+- **Memorylessness**: The time until the next event occurs does not depend on when the last event happened.
+  
+The number of events in a Poisson process over a time interval follows a Poisson distribution with a mean of \( \lambda t \), where \( t \) is the time period.
+
+---
+
+### **10. Customers Arriving at a Bank (3 marks)** (Continued)
+
+Using **Little's Theorem**, we can calculate the average number of customers in the bank:
+
+- **Arrival rate**: \( \lambda = 5 \) customers per minute.
+- **Average waiting time** with an officer: \( W = 5 \) minutes.
+- **The total probability of service** is \( P(\text{spending time with officer}) = 0.5 \) and \( P(\text{handover application
+
+}) = 0.5 \).
+
+The average number of customers in the bank is given by Little's Theorem:
+
+\[
+L = \lambda \times W
+\]
+
+Substituting the values:
+
+\[
+L = 5 \times 5 = 25
+\]
+
+Therefore, the average number of customers in the bank is **25**.
+
+---
+
+This completes your answers! If you have any more questions or need further clarifications, feel free to ask!
